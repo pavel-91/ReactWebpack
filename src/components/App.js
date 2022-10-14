@@ -6,13 +6,17 @@ import MinMax from "./MinMax";
 
 const App = () => {
    const [ products, setProducts ] = useState(ProductsStub());
-   const setCnt = (id, cnt) => {
+   const setCnt = (id, quantity) => {
       setProducts(
          products.map(pr => pr.id != id ? pr : ({
             ...pr,
-            cnt
+            quantity
          }))
       );
+   }
+
+   const sumPrice = (quantity, price) => {
+      return quantity * price;
    }
 
    return (
@@ -28,7 +32,8 @@ const App = () => {
             <th>Название</th>
             <th>Цена</th>
             <th>Количество</th>
-            <th>Cnt</th>
+            <th>Количество на складе</th>
+            <th>Цена товара</th>
          </tr>
          { products.map((pr, i) => (
             <tr key={ pr.id }>
@@ -38,10 +43,23 @@ const App = () => {
                <td>{ pr.title }</td>
                <td>{ pr.price }</td>
                <td>
-                  <MinMax max={ pr.rest } current={ pr.cnt } onChange={cnt => setCnt(pr.id, cnt)}/>
+                  <MinMax max={ pr.MaximumQuantity } current={ pr.quantity } onChange={quantity => setCnt(pr.id, quantity)}/>
                </td>
+               <td>{ pr.MaximumQuantity }</td>
+               <td>{ sumPrice(pr.quantity, pr.price)}</td>
             </tr>
          ))}
+      </tbody>
+   </table>
+   <hr/>
+   <table>
+      <tbody>
+         {
+            <tr>
+               <td><label>Общая сумма товаров:</label></td>
+               <td>5</td>
+            </tr>
+         }
       </tbody>
    </table>
    </>
@@ -57,40 +75,40 @@ function ProductsStub() {
          "category": "Смартфон",
          "title": "Infinix HOT 12 PRO",
          "price": 14990,
-         "rest": 7,
-         "cnt": 1
+         "MaximumQuantity": 7,
+         "quantity": 1
       },
       {
          "id": 74265,
          "category": "Смартфон",
          "title": "Samsung Galaxy A33",
          "price": 23990,
-         "rest": 5,
-         "cnt": 1
+         "MaximumQuantity": 5,
+         "quantity": 1
       },
       {
          "id": 357946,
          "category": "Смартфон",
          "title": "realme C35",
          "price": 10366,
-         "rest": 2,
-         "cnt": 1
+         "MaximumQuantity": 2,
+         "quantity": 1
       },
       {
          "id": 48269,
          "category": "Смартфон",
          "title": "Xiaomi Redmi Note 10S",
          "price": 18999,
-         "rest": 3,
-         "cnt": 1
+         "MaximumQuantity": 3,
+         "quantity": 1
       },
       {
          "id": 28193,
          "category": "Смартфон",
          "title": "Vivo Y33s",
          "price": 15990,
-         "rest": 6,
-         "cnt": 1
+         "MaximumQuantity": 6,
+         "quantity": 1
       },
    ]
 }
