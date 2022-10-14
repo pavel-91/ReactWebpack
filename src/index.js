@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
 import App from "./components/App.js";
 
-// createRoot(document.querySelector('.root')).render(<App/>)
+const root = createRoot(document.querySelector('.root'));
+root.render(<App/>);
 
 
 
@@ -12,4 +12,4 @@ import App from "./components/App.js";
 
 
 
-ReactDOM.render(<App />, document.querySelector(".root"));
+// ReactDOM.render(<App />, document.querySelector(".root"));

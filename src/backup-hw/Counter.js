@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from "prop-types";
 import { Button, TextField } from '@mui/material';
 
-const Counter = ({min = 1, max = 10}) => {
+const Counter = ({min = 1, max}) => {
 	let [ current, setCurrent ] = useState(min);
 
 	function applyCurrent(num) {
@@ -26,7 +26,7 @@ const Counter = ({min = 1, max = 10}) => {
 }
 
 Counter.propTypes = {
-	max: PropTypes.number,
+	max: PropTypes.number.isRequired,
 	min: PropTypes.number
 }
  
