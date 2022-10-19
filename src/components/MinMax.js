@@ -1,26 +1,39 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from "prop-types";
-import { Button, TextField } from '@mui/material';
 
 const MinMax = ({min = 1, max, current, onChange}) => {
+	let inp = useRef();
+
+	function onKeyPress(e) {
+		if(e.key === 'Enter'){
+			parseCurrentStr(e);
+		}
+	}
 
 	function applyCurrent(num) {
 		let validNum = Math.max(min, Math.min(max, num));
+		inp.current.value = validNum;
 		onChange(validNum);
 	}
 
 	let inc = () => applyCurrent(current + 1); 
 	let dec = () => applyCurrent(current - 1); 
 	
-	function parseCurrentStr(e) {
-		let num = parseInt(e.target.value);
+	function parseCurrentStr() {
+		let num = parseInt(inp.current.value);
 		applyCurrent(isNaN(num) ? min : num);
 	}
 
 	return <div>
-		<Button variant="contained" onClick={ dec }>-</Button>
-		<TextField type='text' value={current} size='small' onChange={parseCurrentStr}/>
-		<Button type="button" variant="contained" onClick={ inc }>+</Button>
+		<button variant="contained" onClick={ dec }>-</button>
+		<input
+			ref={inp}
+			type='text'
+			size='small'
+			defaultValue={current}
+			onBlur={parseCurrentStr} 
+			onKeyPress={onKeyPress}/>
+		<button type="button" variant="contained" onClick={ inc }>+</button>
 	</div>
 }
 
